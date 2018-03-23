@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: "Courier New";
+    user-select: none;
+    cursor: default;
+}
+
+body, html {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+h3 {
+
+}
+
+#animationContainer {
+    position: fixed;
+    top: 5%;
+    bottom: 5%;
+    left: 30%;
+    right: 30%;
+}
+
+#topBar {
+    position: fixed;
+    top: 0;
+    height: 5%;
+    left: 0;
+    right: 0;
+}
+
+#time {
+    position: relative;
+    left: 45%;
+    width: 10%;
+    height: 100%;
+    text-align: center;
+    line-height: 200%;
+}

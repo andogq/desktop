@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+<body>
+    <style>
+    * {
+        color: foreground;
+    }
+    body, html {
+        background-color: background;
+    }
+    </style>
+    <script>
+    // Contains all the names for the used colors from the theme
+    const strokeColor = "foreground";
+    </script>
+    <div id="topBar">
+        <h3 id="time"></h3>
+    </div>
+    <div id="animationContainer">
+        <canvas id="animation"></canvas>
+    </div>
+    <script src="js/time.js"></script>
+    <script src="js/animation.js"></script>
+</body>
+</html>
