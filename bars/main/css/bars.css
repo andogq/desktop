@@ -1,0 +1,15 @@
+#topBar {
+    position: fixed;
+    top: 0;
+    height: 5%;
+    left: 0;
+    right: 0;
+}
+
+#leftBar {
+    position: fixed;
+    top: 5%;
+    left: 0;
+    right: 70%;
+    bottom: 5%;
+}
