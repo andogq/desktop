@@ -39,7 +39,7 @@ function makeBar(x, y, height, width, content, directory) {
         minimizable: false,
         maximizable: false,
         frame: false,
-        focusable: true
+        focusable: false
     }
 
     let win = new electron.BrowserWindow(windowOptions);
