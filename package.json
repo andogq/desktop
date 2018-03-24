@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "electron": "^1.8.4"
+    "electron": "^1.8.4",
+    "imap": "^0.8.19"
   },
   "devDependencies": {},
   "scripts": {
