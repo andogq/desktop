@@ -16,6 +16,12 @@
     #emailContainer {
         border-color: foreground;
     }
+    #emailConnectionDot.connected {
+        color: green;
+    }
+    #emailConnectionDot.disconnected {
+        color: red;
+    }
     </style>
     <script>
     const strokeColor = "foreground";
@@ -25,7 +31,16 @@
     </div>
     <div id="leftBar">
         <div id="emailContainer">
-            <h3 class="containerTitle">emails</h3>
+            <div id="emailHeader">
+                <h3 class="containerTitle">emails<span id="emailConnectionDot" class="disconnected">&#x25CF;</span></h3>
+                <h4 id="unreadEmailCount"></h4>
+            </div>
+            <div id="emailPreviews">
+                <div class="email">
+                    <h4 class="emailSender">Tom Anderson</h4>
+                    <h5 class="emailSubject">Test email</h5>
+                </div>
+            </div>
         </div>
     </div>
     <div id="animationContainer">
