@@ -38,11 +38,14 @@ function updateConnectionState() {
 
 // Updates the unread email count
 function updateUnreadEmailCount(unreadEmails) {
-    // Ensures proper English is used
-    const unreadEmailString = ((unreadEmails == 0) ? "No unread emails" : (
-        (unreadEmails == 1) ? "1 unread email" : `${unreadEmails} unread emails`
-    ));
-    unreadEmailCount.innerHTML = unreadEmailString;
+    if (unreadEmails != previous.unreadEmails) {
+        // Ensures proper English is used
+        const unreadEmailString = ((unreadEmails == 0) ? "No unread emails" : (
+            (unreadEmails == 1) ? "1 unread email" : `${unreadEmails} unread emails`
+        ));
+        unreadEmailCount.innerHTML = unreadEmailString;
+        previous.unreadEmails = unreadEmailCount;
+    }
 }
 
 // Creates and appends an email preview
@@ -68,21 +71,38 @@ function addEmailPreview(emailId, sender, subject) {
     }
 }
 
+// Removes the email preview of a certain email
+function removeEmailPreview(emailId) {
+    if (emailId != undefined) {
+        let emailPosition = previewedEmailIds.indexOf(emailId);
+        emailPreviews.removeChild(emailPreviews.children[emailPosition]);
+        previewedEmailIds.splice(emailPosition, 1);
+    }
+}
+
 /******************
 *   Email functions
 ******************/
 // Checks the amount of unread emails on the server, and adds them to the preview list
 function checkUnread() {
     if (connected) {
-        account.search(["UNSEEN"], (err, emails) => {
-            const unreadEmails = emails.length;
-            if (unreadEmails > 0) {
+        account.search(["UNSEEN"], (err, unreadEmails) => {
+            if (JSON.stringify(unreadEmails) != JSON.stringify(previous.unreadEmails)) {
+                const unreadEmailCount = unreadEmails.length;
+                let emailId = undefined;
                 // Update the count
-                updateUnreadEmailCount(unreadEmails);
-                for (emailId of emails) {
-                    // Preview the email
+                updateUnreadEmailCount(unreadEmailCount);
+                // Preview the emails
+                for (emailId of unreadEmails) {
                     getEmail(emailId);
                 }
+                // Remove read emails
+                for (emailId of previewedEmailIds) {
+                    if (unreadEmails.indexOf(emailId) == -1) {
+                        removeEmailPreview(emailId);
+                    }
+                }
+                previous.unreadEmails = unreadEmails;
             }
         });
     }
@@ -90,27 +110,29 @@ function checkUnread() {
 
 // Gets the sender and subject of an email
 function getEmail(emailId) {
-    // Creates the request to the server
-    const emailRequest = account.fetch(emailId, {bodies: "HEADER.FIELDS (FROM SUBJECT)"});
-    // A message object is returned from the server
-    emailRequest.on("message", (msg) => {
-        // Stream returned by server
-        msg.on("body", (stream) => {
-            let message = "";
-            // Data send from stream
-            stream.on("data", (chunk) => {
-                message += chunk.toString("utf8");
-            });
-            // Stream finished
-            stream.once("end", () => {
-                [sender, subject] = message.split("\n");
-                sender = /From: (.+) </.exec(sender)[1];
-                subject = /Subject: (.+)/.exec(subject)[1];
-                // Preview the email
-                addEmailPreview(emailId, sender, subject);
+    if (emailId != undefined && emailId != previous.lastEmailFetched && previewedEmailIds.indexOf(emailId) == -1) {
+        // Creates the request to the server
+        const emailRequest = account.fetch(emailId, {bodies: "HEADER.FIELDS (FROM SUBJECT)"});
+        // A message object is returned from the server
+        emailRequest.on("message", (msg) => {
+            // Stream returned by server
+            msg.on("body", (stream) => {
+                let message = "";
+                // Data send from stream
+                stream.on("data", (chunk) => {
+                    message += chunk.toString("utf8");
+                });
+                // Stream finished
+                stream.once("end", () => {
+                    sender = /From: (.+) </.exec(message)[1];
+                    subject = /Subject: ([\S\s]+)/.exec(message)[1];
+                    // Preview the email
+                    addEmailPreview(emailId, sender, subject);
+                });
             });
         });
-    });
+        previous.lastEmailFetched = emailId;
+    }
 }
 
 /*********************
