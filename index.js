@@ -4,7 +4,7 @@ const fs = require("fs");
 
 // Globals
 let screenHeight, screenWidth;
-const colors = JSON.parse(fs.readFileSync("colors.json"));
+const colors = JSON.parse(fs.readFileSync("colors.json", {encoding: "utf8"}));
 
 // Returns the screen size
 function getScreenSize() {

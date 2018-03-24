@@ -1,0 +1,9 @@
+{
+    "email": {
+        "user": "<email address>",
+        "password": "<email password>",
+        "host": "<host server>",
+        "port": "<server port>",
+        "tls": "<true/false tls support>"
+    }
+}
