@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/bars.css"/>
     <link rel="stylesheet" type="text/css" href="css/time.css"/>
     <link rel="stylesheet" type="text/css" href="css/optionsMenu.css"/>
+    <link rel="stylesheet" type="text/css" href="css/timetable.css"/>
 </head>
 <body>
     <!-- Contains all the names for the used colors from the theme -->
@@ -36,6 +37,9 @@
     #optionDevTools {
         color: green;
     }
+    .currentPeriod > * {
+        color: magneta;
+    }
     </style>
     <script>
     const strokeColor = "foreground";
@@ -53,12 +57,45 @@
         </div>
     </div>
     <div id="leftBar">
-        <div id="emailContainer">
+        <div id="emailContainer" class="container">
             <div id="emailHeader">
                 <h3 class="containerTitle">emails<span id="emailConnectionDot" class="disconnected">&#x25CF;</span></h3>
                 <h4 id="unreadEmailCount"></h4>
             </div>
             <div id="emailPreviews">
+            </div>
+        </div>
+    </div>
+    <div id="rightBar">
+        <div id="timetable" class="container">
+            <div id="timetableHeader">
+                <h3 class="containerTitle">timetable</h3>
+            </div>
+            <div id="timetableView">
+                <div class="timetableRow">
+                    <h4 class="timetableClass">science</h4>
+                    <h5 class="timetableRoom">s1</h5>
+                </div>
+                <div class="timetableRow">
+                    <h4 class="timetableClass">science</h4>
+                    <h5 class="timetableRoom">s1</h5>
+                </div>
+                <div class="timetableRow currentPeriod">
+                    <h4 class="timetableClass">english</h4>
+                    <h5 class="timetableRoom">e2</h5>
+                </div>
+                <div class="timetableRow">
+                    <h4 class="timetableClass">english</h4>
+                    <h5 class="timetableRoom">e2</h5>
+                </div>
+                <div class="timetableRow">
+                    <h4 class="timetableClass">pe</h4>
+                    <h5 class="timetableRoom">gym</h5>
+                </div>
+                <div class="timetableRow">
+                    <h4 class="timetableClass">pe</h4>
+                    <h5 class="timetableRoom">gym</h5>
+                </div>
             </div>
         </div>
     </div>
@@ -69,5 +106,6 @@
     <script src="js/animation.js"></script>
     <script src="js/emails.js"></script>
     <script src="js/optionsMenu.js"></script>
+    <script src="js/timetable.js"></script>
 </body>
 </html>

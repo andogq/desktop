@@ -1,11 +1,5 @@
 #emailContainer {
-    position: absolute;
-    bottom: 0;
-    width: 90%;
     height: 30%;
-    border-top: 1px solid;
-    padding: 5%;
-    overflow: hidden; /* Hides the scroll bar */
 }
 
 #emailConnectionDot {
