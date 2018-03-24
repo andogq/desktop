@@ -40,7 +40,7 @@ function updateConnectionState() {
 function updateUnreadEmailCount(unreadEmails) {
     if (unreadEmails != previous.unreadEmails) {
         // Ensures proper English is used
-        const unreadEmailString = ((unreadEmails == 0) ? "No unread emails" : (
+        const unreadEmailString = ((unreadEmails == 0) ? "no unread emails" : (
             (unreadEmails == 1) ? "1 unread email" : `${unreadEmails} unread emails`
         ));
         unreadEmailCount.innerHTML = unreadEmailString;
