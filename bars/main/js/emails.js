@@ -26,22 +26,28 @@ const emailPreviews = document.getElementById("emailPreviews");
 /****************
 *   DOM Functions
 ****************/
+// If the connection state has changed the color of the connection dot will be changed
 function updateConnectionState() {
     if (connected != previous.connected) {
+        // Inverts the classes
         let states = connected == false ? ["disconnected", "connected"] : ["connected", "disconnected"];
         emailConnectionDot.classList.add(states[0]);
         emailConnectionDot.classList.remove(states[1]);
     }
 }
 
+// Updates the unread email count
 function updateUnreadEmailCount(unreadEmails) {
+    // Ensures proper English is used
     const unreadEmailString = ((unreadEmails == 0) ? "No unread emails" : (
         (unreadEmails == 1) ? "1 unread email" : `${unreadEmails} unread emails`
     ));
     unreadEmailCount.innerHTML = unreadEmailString;
 }
 
+// Creates and appends an email preview
 function addEmailPreview(emailId, sender, subject) {
+    // Makes sure that there's no duplicates in the list
     if (previewedEmailIds.indexOf(emailId) == -1) {
         let container = document.createElement("div");
         container.classList.add("email");
@@ -65,13 +71,16 @@ function addEmailPreview(emailId, sender, subject) {
 /******************
 *   Email functions
 ******************/
+// Checks the amount of unread emails on the server, and adds them to the preview list
 function checkUnread() {
     if (connected) {
         account.search(["UNSEEN"], (err, emails) => {
             const unreadEmails = emails.length;
             if (unreadEmails > 0) {
+                // Update the count
                 updateUnreadEmailCount(unreadEmails);
                 for (emailId of emails) {
+                    // Preview the email
                     getEmail(emailId);
                 }
             }
@@ -79,19 +88,25 @@ function checkUnread() {
     }
 }
 
+// Gets the sender and subject of an email
 function getEmail(emailId) {
+    // Creates the request to the server
     const emailRequest = account.fetch(emailId, {bodies: "HEADER.FIELDS (FROM SUBJECT)"});
+    // A message object is returned from the server
     emailRequest.on("message", (msg) => {
+        // Stream returned by server
         msg.on("body", (stream) => {
             let message = "";
+            // Data send from stream
             stream.on("data", (chunk) => {
                 message += chunk.toString("utf8");
             });
+            // Stream finished
             stream.once("end", () => {
                 [sender, subject] = message.split("\n");
                 sender = /From: (.+) </.exec(sender)[1];
                 subject = /Subject: (.+)/.exec(subject)[1];
-
+                // Preview the email
                 addEmailPreview(emailId, sender, subject);
             });
         });
@@ -101,6 +116,7 @@ function getEmail(emailId) {
 /*********************
 *   Interval functions
 *********************/
+// Function run every second, which calls other functions
 function intervalFunction() {
     checkUnread();
     updateConnectionState();
@@ -131,6 +147,7 @@ account.once('error', (err) => {
     console.log(err);
 });
 
+// Changes the connection state and changes the previous state to reflect it
 function changeConnectionState(newState) {
     [connected, previous.connected] = newState == "connected" ? [true, false] : [false, true];
 }
