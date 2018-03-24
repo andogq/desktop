@@ -4,7 +4,7 @@ function getCurrentTime() {
     let time = new Date(Date.now());
     time = timeRegex.exec(time.toTimeString());
     time = [time[1], ":", time[2], ""];
-    [time[0], time[3]] = time[0] > 12 ? [time[0] - 12, " PM"] : [time[0], " AM"];
+    [time[0], time[3]] = time[0] > 12 ? [time[0] - 12, " pm"] : [time[0], " am"];
     return time.join("");
 }
 
