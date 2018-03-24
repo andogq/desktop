@@ -1,5 +1,7 @@
 .timetableClass, .timetableRoom {
     display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .timetableClass {

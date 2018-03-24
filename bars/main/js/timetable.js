@@ -3,6 +3,18 @@
 **********/
 const ntlm = require("httpntlm");
 
+/**********
+*   Globals
+**********/
+let timetable = [];
+// Clears odd things from class names
+const cleanRegex = /^\d+ *| \([\s\S]+\)| Block \d[\s\S]+$| Cert[\s\S]+$/g;
+
+/*************
+*   Global DOM
+*************/
+const timetableView = document.getElementById("timetableView");
+
 /*****************
 *   Date functions
 *****************/
@@ -14,6 +26,59 @@ function generateSelectedDate(date) {
     let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     let year = date.getFullYear();
     return `${year}-${month}-${day}`;
+}
+
+/****************
+*   DOM Functions
+****************/
+function loadTimetable(timetable, noTimetable) {
+    if (noTimetable) {
+        let note = document.createElement("h5");
+        note.innerHTML = "no classes today";
+
+        timetableView.appendChild(note);
+    } else {
+        for (period of timetable.periods) {
+            let periodContainer = document.createElement("div");
+            periodContainer.classList.add("timetableRow");
+
+            let periodClass = document.createElement("h5");
+            periodClass.classList.add("timetableClass");
+            periodClass.innerHTML = period.class.toLowerCase();
+
+            let periodRoom = document.createElement("h5");
+            periodRoom.classList.add("timetableRoom");
+            periodRoom.innerHTML = period.room.toLowerCase();
+
+            periodContainer.appendChild(periodClass);
+            periodContainer.appendChild(periodRoom);
+
+            timetableView.appendChild(periodContainer);
+        }
+    }
+}
+
+/**********************
+*   Timetable functions
+**********************/
+function parseTimetable(data) {
+    data = JSON.parse(data).d;
+    if (data.Periods.length == 0) {
+        loadTimetable("", true);
+    } else {
+        timetable.periods = [];
+
+        for (period of data.Periods) {
+            timetable.periods.push({
+                start: period.StartTime,
+                end: period.EndTime,
+                class: period.Classes[0].Description == null ? "" : period.Classes[0].Description.replace(cleanRegex, ""),
+                room: period.Classes[0].Room == null ? "" : period.Classes[0].Room
+            });
+        }
+
+        loadTimetable(timetable);
+    }
 }
 
 /********************
@@ -37,6 +102,8 @@ function getTimetable(date) {
         }
     }, (err, res) => {
         if (err) console.log(err);
-        console.log(res.body);
+        parseTimetable(res.body);
     });
 }
+
+getTimetable("02/05/18");
