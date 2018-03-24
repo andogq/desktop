@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/animation.css"/>
     <link rel="stylesheet" type="text/css" href="css/bars.css"/>
     <link rel="stylesheet" type="text/css" href="css/time.css"/>
+    <link rel="stylesheet" type="text/css" href="css/optionsMenu.css"/>
 </head>
 <body>
     <!-- Contains all the names for the used colors from the theme -->
@@ -26,6 +27,15 @@
     #emailConnectionDot.disconnected {
         color: red;
     }
+    #optionCloseWindow {
+        color: red;
+    }
+    #optionRelaunchWindow {
+        color: yellow;
+    }
+    #optionDevTools {
+        color: green;
+    }
     </style>
     <script>
     const strokeColor = "foreground";
@@ -33,6 +43,14 @@
     <!-- End of the colors -->
     <div id="topBar">
         <h3 id="time"></h3>
+        <div id="optionsMenu">
+            <h2>options</h2>
+            <div id="optionsMenuList">
+                <h4 id="optionCloseWindow">close window</h4><br/>
+                <h4 id="optionRelaunchWindow">relaunch window</h4><br/>
+                <h4 id="optionDevTools">dev tools</h4>
+            </div>
+        </div>
     </div>
     <div id="leftBar">
         <div id="emailContainer">
@@ -50,5 +68,6 @@
     <script src="js/time.js"></script>
     <script src="js/animation.js"></script>
     <script src="js/emails.js"></script>
+    <script src="js/optionsMenu.js"></script>
 </body>
 </html>

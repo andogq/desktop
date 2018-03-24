@@ -1,0 +1,26 @@
+#optionsMenu {
+    position: fixed;
+    left: 40%;
+    top: -50%;
+    width: 18%;
+    padding: 1%;
+    border: 1px solid #acc4fd;
+    background: #091426;
+    transition: top 0.25s;
+}
+
+#optionsMenu > h2 {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+#optionsMenuList {
+    padding: 1%;
+    border-top: 1px solid #acc4fd;
+}
+
+#optionsMenuList > * {
+    display: inline;
+    cursor: pointer;
+}
