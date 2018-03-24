@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "electron": "^1.8.4",
+    "httpntlm": "^1.7.5",
     "imap": "^0.8.19"
   },
   "devDependencies": {},
