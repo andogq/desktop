@@ -27,7 +27,7 @@ There are some files that need to be created in order for certain things to work
 
 ---
 
-### `/config.json`
+### `/userConfig.json`
 
 This file contains the details for connecting to services.
 

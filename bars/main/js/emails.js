@@ -8,7 +8,7 @@ const fs = require("fs");
 *   Globals
 **********/
 // Configuration file
-const configFile = JSON.parse(fs.readFileSync("./config.json", {encoding: "utf8"}));
+const configFile = JSON.parse(fs.readFileSync("./userConfig.json", {encoding: "utf8"}));
 // True or false depending on whether there is a connection or not
 let connected = false;
 // Holds the previous variables, so they can be checked that they're different as to not slow down DOM
