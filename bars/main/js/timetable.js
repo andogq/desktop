@@ -6,8 +6,9 @@ const ntlm = require("httpntlm");
 /**********
 *   Globals
 **********/
+// Holds the timetable
 let timetable = [];
-// Holds the ID of the current period
+// Holds the ID of the current and pervious period
 let currentPeriod;
 let previousPeriod;
 // Clears odd things from class names
@@ -34,6 +35,7 @@ function generateSelectedDate(date) {
 /****************
 *   DOM Functions
 ****************/
+// Takes a timetable and displays it in the timetable view. If noTimetable == true then it'll just say no classes
 function loadTimetable(timetable, noTimetable) {
     if (noTimetable) {
         let note = document.createElement("h5");
@@ -61,6 +63,7 @@ function loadTimetable(timetable, noTimetable) {
     }
 }
 
+// Changes the highlighted period to the current period
 function changePeriod() {
     if (previousPeriod != undefined) {
         timetableView.children[previousPeriod].classList.remove("currentPeriod");
@@ -71,6 +74,7 @@ function changePeriod() {
 /**********************
 *   Timetable functions
 **********************/
+// Takes raw data and turns it into the timetable object then loads it into the object
 function parseTimetable(data) {
     data = JSON.parse(data).d;
     if (data.Periods.length == 0) {
@@ -91,6 +95,7 @@ function parseTimetable(data) {
     }
 }
 
+// Returns the current period based on what time it is and the start and ends of the period
 function findCurrentPeriod() {
     let todayTime = Date.parse(`1/1/2001 ${new Date().getHours()}:${new Date().getMinutes()}`);
     for (periodId in timetable.periods) {
@@ -103,6 +108,7 @@ function findCurrentPeriod() {
     return -1;
 }
 
+// Checks if the period has changed
 function checkCurrentPeriod() {
     previousPeriod = currentPeriod;
     currentPeriod = findCurrentPeriod();
@@ -114,16 +120,20 @@ function checkCurrentPeriod() {
 /*********************
 *   Interval functions
 *********************/
+// Function run every second
 function intervalFunction() {
     checkCurrentPeriod();
 }
 setInterval(intervalFunction, 1000);
+
+setInterval(getTimetable, 3600000);
 
 /********************
 *   Request functions
 ********************/
 // Requests a timetable for a certain date, defaulting to today
 function getTimetable(date) {
+    // Data required for the SIMON server
     const data = JSON.stringify({
         selectedDate: generateSelectedDate(date),
         selectedGroup: null
@@ -144,4 +154,4 @@ function getTimetable(date) {
     });
 }
 
-getTimetable("02/05/18");
+getTimetable();
