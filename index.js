@@ -65,7 +65,7 @@ function replaceColors(file) {
 function loadBar() {
     fs.readdir("./bars", (err, files) => {
         for (directory of files) {
-            let config = JSON.parse(fs.readFileSync(`./bars/${directory}/userConfig.json`));
+            let config = JSON.parse(fs.readFileSync(`./bars/${directory}/config.json`));
             let content = replaceColors(`bars/${directory}/index.html`);
             makeBar(config.position.x, config.position.y, config.dimensions.height, config.dimensions.width, content, directory);
         }
