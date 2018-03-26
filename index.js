@@ -28,11 +28,11 @@ function makeWindow() {
     }
 
     // Loads the color scheme and encodes it
-    let content = encodeURIComponent(replaceColors(`bars/main/index.html`));
+    let content = encodeURIComponent(replaceColors(`view/index.html`));
 
     // Makes the window and loads it
     let win = new electron.BrowserWindow(windowOptions);
-    win.loadURL(`data:text/html;charset=UTF-8,${content}`, {baseURLForDataURL: `file://${__dirname}/bars/main/`});
+    win.loadURL(`data:text/html;charset=UTF-8,${content}`, {baseURLForDataURL: `file://${__dirname}/view/`});
 }
 
 // Finds the names of colors and replaces them with the theme color

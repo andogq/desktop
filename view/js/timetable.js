@@ -66,6 +66,7 @@ function loadTimetable(timetable, noTimetable) {
 // Changes the highlighted period to the current period
 function changePeriod() {
     if (previousPeriod != undefined && previousPeriod != -1) {
+        console.log("Here")
         timetableView.children[previousPeriod].classList.remove("currentPeriod");
     }
     timetableView.children[currentPeriod].classList.add("currentPeriod");
