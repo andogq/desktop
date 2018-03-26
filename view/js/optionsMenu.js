@@ -44,9 +44,6 @@ timeElement.addEventListener("click", () => {
     menuClicked = true;
     toggleOptionsMenu();
 });
-optionCloseWindow.addEventListener("click", closeWindow);
-optionDevTools.addEventListener("click", openDevTools);
-optionRelaunchWindow.addEventListener("click", relaunchWindow);
 
 // Lets the menu close when clicked off
 document.addEventListener("click", () => {
@@ -55,6 +52,11 @@ document.addEventListener("click", () => {
     }
     menuClicked = false;
 })
+
 optionsMenu.addEventListener("click", () => {
     menuClicked = true;
 });
+
+optionCloseWindow.addEventListener("click", closeWindow);
+optionDevTools.addEventListener("click", openDevTools);
+optionRelaunchWindow.addEventListener("click", relaunchWindow);

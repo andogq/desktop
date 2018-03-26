@@ -143,7 +143,6 @@ function intervalFunction() {
     checkUnread();
     updateConnectionState();
 }
-setInterval(intervalFunction, 1000);
 
 /*************
 *   IMAP Setup
@@ -174,9 +173,15 @@ function changeConnectionState(newState) {
     [connected, previous.connected] = newState == "connected" ? [true, false] : [false, true];
 }
 
+/****************
+*   Init function
+****************/
 function init() {
     account.connect();
+    setInterval(intervalFunction, 1000);
 }
 
-// Connect to the account
+/**********************
+*   Exporting functions
+**********************/
 module.exports.init = init;

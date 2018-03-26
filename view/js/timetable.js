@@ -128,9 +128,6 @@ function checkCurrentPeriod() {
 function intervalFunction() {
     checkCurrentPeriod();
 }
-setInterval(intervalFunction, 1000);
-
-setInterval(getTimetable, 3600000);
 
 /********************
 *   Request functions
@@ -158,4 +155,16 @@ function getTimetable(date) {
     });
 }
 
-module.exports.init = getTimetable;
+/****************
+*   Init function
+****************/
+function init() {
+    getTimetable()
+    setInterval(intervalFunction, 1000);
+    setInterval(getTimetable, 3600000);
+}
+
+/**********************
+*   Exporting functions
+**********************/
+module.exports.init = init;

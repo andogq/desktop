@@ -1,6 +1,6 @@
-/**********
-*   Imports
-**********/
+/*********
+*   Import
+*********/
 const path = require("path")
 
 /******************
@@ -19,10 +19,10 @@ const optionsMenu = importFile("optionsMenu.js");
 const emails = importFile("emails.js");
 const timetable = importFile("timetable.js");
 
+/***********************
+*   Initialise functions
+***********************/
 animation.init();
 time.init();
 emails.init();
 timetable.init();
-
-// Open the dev tools
-// require("electron").remote.getCurrentWindow().toggleDevTools();
