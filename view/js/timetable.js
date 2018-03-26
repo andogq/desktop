@@ -2,6 +2,7 @@
 *   Imports
 **********/
 const ntlm = require("httpntlm");
+const fs = require("fs");
 
 /**********
 *   Globals
@@ -13,6 +14,8 @@ let currentPeriod;
 let previousPeriod;
 // Clears odd things from class names
 const cleanRegex = /^\d+ *| \([\s\S]+\)| Block \d[\s\S]+$| Cert[\s\S]+$/g;
+
+const configFile = JSON.parse(fs.readFileSync("./userConfig.json", {encoding: "utf8"}));
 
 /*************
 *   Global DOM
@@ -65,7 +68,8 @@ function loadTimetable(timetable, noTimetable) {
 
 // Changes the highlighted period to the current period
 function changePeriod() {
-    if (previousPeriod != undefined) {
+    if (previousPeriod != undefined && previousPeriod != -1) {
+        console.log("Here")
         timetableView.children[previousPeriod].classList.remove("currentPeriod");
     }
     timetableView.children[currentPeriod].classList.add("currentPeriod");
@@ -124,9 +128,6 @@ function checkCurrentPeriod() {
 function intervalFunction() {
     checkCurrentPeriod();
 }
-setInterval(intervalFunction, 1000);
-
-setInterval(getTimetable, 3600000);
 
 /********************
 *   Request functions
@@ -154,4 +155,16 @@ function getTimetable(date) {
     });
 }
 
-getTimetable();
+/****************
+*   Init function
+****************/
+function init() {
+    getTimetable()
+    setInterval(intervalFunction, 1000);
+    setInterval(getTimetable, 3600000);
+}
+
+/**********************
+*   Exporting functions
+**********************/
+module.exports.init = init;
