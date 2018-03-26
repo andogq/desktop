@@ -2,6 +2,7 @@
 *   Imports
 **********/
 const ntlm = require("httpntlm");
+const fs = require("fs");
 
 /**********
 *   Globals
@@ -13,6 +14,8 @@ let currentPeriod;
 let previousPeriod;
 // Clears odd things from class names
 const cleanRegex = /^\d+ *| \([\s\S]+\)| Block \d[\s\S]+$| Cert[\s\S]+$/g;
+
+const configFile = JSON.parse(fs.readFileSync("./userConfig.json", {encoding: "utf8"}));
 
 /*************
 *   Global DOM
@@ -155,4 +158,4 @@ function getTimetable(date) {
     });
 }
 
-getTimetable();
+module.exports.init = getTimetable;

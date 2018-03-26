@@ -7,7 +7,7 @@ let menuClicked = false;
 /*************
 *   Global DOM
 *************/
-const time = document.getElementById("time");
+const timeElement = document.getElementById("time");
 const optionsMenu = document.getElementById("optionsMenu");
 const optionCloseWindow = document.getElementById("optionCloseWindow");
 const optionDevTools = document.getElementById("optionDevTools");
@@ -40,7 +40,7 @@ function openDevTools() {
 /******************
 *   Event Listeners
 ******************/
-time.addEventListener("click", () => {
+timeElement.addEventListener("click", () => {
     menuClicked = true;
     toggleOptionsMenu();
 });

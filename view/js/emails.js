@@ -174,5 +174,9 @@ function changeConnectionState(newState) {
     [connected, previous.connected] = newState == "connected" ? [true, false] : [false, true];
 }
 
+function init() {
+    account.connect();
+}
+
 // Connect to the account
-account.connect();
+module.exports.init = init;

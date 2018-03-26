@@ -16,7 +16,17 @@ function loadTime() {
 // Time element
 const timeElement = document.getElementById("time");
 
-loadTime();
-setInterval(() => {
+/****************
+*   Init function
+****************/
+function init() {
     loadTime();
-}, 1000);
+    setInterval(() => {
+        loadTime();
+    }, 1000);
+}
+
+/**********
+*   Exports
+**********/
+module.exports.init = init;

@@ -1,3 +1,13 @@
+/**********
+*   Globals
+**********/
+let points = [];
+const pointCount = 20;
+const minJoins = 3;
+const maxJoins = 10;
+const minStayCount = 100;
+const maxStayCount = 1000;
+
 /***************
 *   Canvas setup
 ***************/
@@ -150,21 +160,18 @@ function drawJoins() {
     }
 }
 
-/**********
-*   Globals
-**********/
-let points = [];
-const pointCount = 20;
-const minJoins = 3;
-const maxJoins = 10;
-const minStayCount = 100;
-const maxStayCount = 1000;
+/****************
+*   Init function
+****************/
+function init() {
+    generatePoints();
+    generateJoins();
+    generateGoals();
+    drawJoins();
+    window.requestAnimationFrame(movePoints);
+}
 
-/*******
-*   Code
-*******/
-generatePoints();
-generateJoins();
-generateGoals();
-drawJoins();
-window.requestAnimationFrame(movePoints);
+/**********************
+*   Exporting functions
+**********************/
+module.exports.init = init;
